@@ -26,6 +26,7 @@ class ViewController: UIViewController {
                 with: "Invalid login or password",
                 and: "Please, enter correct login and password"
             )
+            password.text = nil
             return
         }
         
