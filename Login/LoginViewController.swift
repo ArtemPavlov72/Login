@@ -7,19 +7,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
-    
     @IBOutlet var userName: UITextField!
     @IBOutlet var password: UITextField!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let welcomeName = segue.destination as? WelcomeViewController else {return}
+        welcomeName.nameForWelcome = userName.text
+    }
+    
     @IBAction func logInPressed() {
         guard userName.text == "Artem", password.text == "0000" else {
             showAlert(
@@ -29,7 +30,6 @@ class ViewController: UIViewController {
             password.text = nil
             return
         }
-        
     }
     
     @IBAction func forgotUserPressed() {
@@ -40,11 +40,14 @@ class ViewController: UIViewController {
         showAlert(with: "Oops!", and: "Your password is 0000 😃")
     }
     
-    
+    @IBAction func unwind(for segue: UIStoryboardSegue) {
+        userName.text = nil
+        password.text = nil
+    }
 }
 
 // MARK: - Alarm Methods
-extension ViewController {
+extension LoginViewController {
     private func showAlert(with title: String, and massage:String) {
         let alert = UIAlertController(
             title: title,

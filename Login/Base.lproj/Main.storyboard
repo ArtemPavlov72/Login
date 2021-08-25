@@ -11,7 +11,7 @@
         <!--LoginViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="LoginViewController" customClass="ViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="LoginViewController" customClass="LoginViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +90,7 @@
         <!--WelcomeViewController-->
         <scene sceneID="HTd-Gc-fgv">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="kcP-fN-Pfz" userLabel="WelcomeViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="kcP-fN-Pfz" userLabel="WelcomeViewController" customClass="WelcomeViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S9y-7A-IKz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,6 +121,9 @@
                                 <state key="normal" title="Log out">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="27e-Rx-IWb" kind="unwind" unwindAction="unwindFor:" id="aj1-J3-WVC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cLK-ke-rXV"/>
@@ -133,8 +136,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d63-El-VKP"/>
+                    <connections>
+                        <outlet property="welcomeUserName" destination="dC2-wE-s4M" id="nD4-QE-0i7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cbh-uv-Xqi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="27e-Rx-IWb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="835" y="138"/>
         </scene>
