@@ -11,19 +11,39 @@ class WelcomeViewController: UIViewController {
 
     @IBOutlet var welcomeUserName: UILabel!
     
-    var nameForWelcome: String!
+    var user = ""
+    
+    private let primaryColor = UIColor(
+        red: 210/255,
+        green: 109/255,
+        blue: 128/255,
+        alpha: 1)
+    
+    private let secondaryColor = UIColor(
+        red: 107/255,
+        green: 148/255,
+        blue: 230/255,
+        alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        welcomeUserName.text = "Welcome \(nameForWelcome ?? "Wrong name")!"
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        let colotTop = UIColor.init(red: 190.0/255.0, green: 127.0/255.0, blue: 140.0/255.0, alpha: 1)
-        let colorBottom = UIColor.init(red: 105.0/255.0, green: 125.0/255.0, blue: 173.0/255.0, alpha: 1)
-        gradient.colors = [colotTop.cgColor, colorBottom.cgColor]
-        
-        view.layer.insertSublayer(gradient, at: 0)
+        view.addVerticalGradientLayer(topColor: primaryColor, bottomColor: secondaryColor)
+        welcomeUserName.text = "Welcome \(user)!"
     }
 }
+        
+        // MARK - Set background color
+        extension UIView {
+            func addVerticalGradientLayer(topColor: UIColor, bottomColor: UIColor) {
+                let gradient = CAGradientLayer()
+                gradient.frame = bounds
+                gradient.colors = [topColor.cgColor, bottomColor.cgColor]
+                gradient.locations = [0.0, 1.0]
+                gradient.startPoint = CGPoint(x: 0, y: 0)
+                gradient.endPoint = CGPoint(x: 0, y: 1)
+                layer.insertSublayer(gradient, at: 0)
+            }
+        }
+        
+        
+       

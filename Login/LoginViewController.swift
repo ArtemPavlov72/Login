@@ -9,32 +9,24 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet var userName: UITextField!
-    @IBOutlet var password: UITextField!
+    @IBOutlet var userNameText: UITextField!
+    @IBOutlet var passwordText: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    private let user = "Artem"
+    private let password = "0000"
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeName = segue.destination as? WelcomeViewController else {return}
-        welcomeName.nameForWelcome = userName.text
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (touches.first) != nil {
-            view.endEditing(true)
-        }
-        super.touchesBegan(touches, with: event)
+        welcomeName.user = user
     }
     
     @IBAction func logInPressed() {
-        guard userName.text == "Artem", password.text == "0000" else {
+        guard userNameText.text == user, passwordText.text == password else {
             showAlert(
                 with: "Invalid login or password",
                 and: "Please, enter correct login and password"
             )
-            password.text = nil
+            passwordText.text = nil
             return
         }
     }
@@ -47,9 +39,9 @@ class LoginViewController: UIViewController {
         showAlert(with: "Oops!", and: "Your password is 0000 😃")
     }
     
-    @IBAction func unwind(for segue: UIStoryboardSegue) {
-        userName.text = nil
-        password.text = nil
+    @IBAction func unwindSegue(for segue: UIStoryboardSegue) {
+        userNameText.text = nil
+        passwordText.text = nil
     }
 }
 
@@ -61,8 +53,32 @@ extension LoginViewController {
             message: massage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alertOK = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(alertOK)
         present(alert, animated: true)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension LoginViewController: UITextFieldDelegate {
+    override func touchesBegan(
+        _ touches: Set<UITouch>,
+        with event: UIEvent?
+    )
+    {
+         super.touchesBegan(touches, with: event)
+         view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == userNameText {
+            passwordText.becomeFirstResponder()
+        } else {
+            logInPressed()
+            performSegue(withIdentifier: "showIsGo", sender: nil)
+        }
+        return true
     }
 }
 
